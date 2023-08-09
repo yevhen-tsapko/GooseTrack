@@ -5,7 +5,7 @@ const path = require("node:path");
 // const { auth } = require("./middlewares");
 
 const authRouter = require("./routes/api/auth");
-const userRouter = require("./routes/api/users");
+// const userRouter = require("./routes/api/users");
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRouter);
-app.use("/api/users", userRouter);
+// app.use("/api/users", userRouter);
 app.use("/avatars", express.static(path.join(__dirname, "public", "avatars")));
 
 app.use((req, res) => {

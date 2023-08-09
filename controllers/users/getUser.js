@@ -5,7 +5,9 @@ const getUser = async (req, res) => {
   if (!user) {
     return res.status(401).json({ message: "Not authorized" });
   }
-  const { email, subscription } = user;
-  return res.status(200).json({ email, subscription });
+  const { email, name, phone, skype, avatarURL, bithday } = user;
+  return res
+    .status(200)
+    .json({ email, name, phone, skype, avatarURL, bithday });
 };
 module.exports = getUser;
