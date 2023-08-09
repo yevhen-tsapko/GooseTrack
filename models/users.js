@@ -4,7 +4,6 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      default: "starter",
       required: [true, "User name"],
     },
     password: {
@@ -42,7 +41,7 @@ const userSchema = new Schema(
   },
   { versionKey: false, timestamps: true }
 );
-const User = model("user", userSchema);
+const User = model("users", userSchema);
 
 userSchema.post("save", handleMongooseError);
 module.exports = User;
