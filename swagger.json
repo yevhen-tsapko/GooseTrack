@@ -1,0 +1,25 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "GooseTrack",
+    "description": "API documentation for project GooseTrack"
+  },
+  "consumes": ["aplication/json"],
+  "produces": ["aplication/json"],
+  "servers": [{ "url": "http://localhost:3000" }],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Reviews",
+      "description": "Reviews endpoints"
+    },
+    {
+      "name": "Task",
+      "description": "Tasks endpoints"
+    }
+  ]
+}
