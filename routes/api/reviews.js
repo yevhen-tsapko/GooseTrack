@@ -8,8 +8,7 @@ const { reviewSchema } = require("../../schemas");
 router.get("/", contrs.getAllReviews);
 router.get("/own", auth, contrs.getReview);
 router.post("/own", auth, validateBody(reviewSchema), contrs.createReview);
-router.patch(
-  "/own/:id",
+router.patch("/own",
   auth,
   isValidId,
   isUserMatchId,

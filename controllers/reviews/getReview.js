@@ -1,6 +1,7 @@
 const Review = require("../../models/reviews");
 const getReview = async (req, res) => {
-  const review = await Review.findById(req.user.id);
+  const { id } = req.params;
+  const review = await Review.findOne({ ownerId: id });
   if (!review) {
     return res.status(404).json({ message: "You have no review" });
   }
