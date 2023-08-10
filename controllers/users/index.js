@@ -2,7 +2,7 @@ const register = require("./register");
 const login = require("./login");
 const logout = require("./logout");
 const getUser = require("./getUser");
-const uploadNewUserData = require("./uploadNewUserData");
+const uploadUserNewData = require("./uploadUserNewData");
 const contrsWrapper = require("../../helpers/contrsWrapper");
 
 module.exports = {
@@ -10,5 +10,5 @@ module.exports = {
   login: contrsWrapper(login),
   logout: contrsWrapper(logout),
   getUser: contrsWrapper(getUser),
-  uploadNewUserData: contrsWrapper(uploadNewUserData),
+  uploadNewUserData: contrsWrapper(uploadUserNewData),
 };
