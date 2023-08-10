@@ -5,8 +5,8 @@
     "title": "GooseTrack",
     "description": "API documentation for project GooseTrack"
   },
-  "consumes": ["aplication/json"],
-  "produces": ["aplication/json"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "servers": [{ "url": "http://localhost:3000" }],
   "tags": [
     {
@@ -21,5 +21,69 @@
       "name": "Task",
       "description": "Tasks endpoints"
     }
-  ]
+  ],
+
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "parameters": [],
+
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "409": {
+            "description": "Email in use",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login"
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout"
+      }
+    },
+    "/api/auth/current": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Current user information"
+      },
+      "patch": {
+        "tags": ["Auth"],
+        "summary": ""
+      }
+    }
+  }
 }
