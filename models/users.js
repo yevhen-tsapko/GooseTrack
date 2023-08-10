@@ -4,7 +4,7 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      // required: [true, "User name"],
+      required: [true, "User name"],
     },
     password: {
       type: String,
@@ -27,9 +27,6 @@ const userSchema = new Schema(
     skype: {
       type: String,
       default: "Add skype number",
-    },
-    avatar: {
-      type: String,
     },
     token: { type: String, default: null },
     avatarURL: { type: String },

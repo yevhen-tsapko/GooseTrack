@@ -1,7 +1,7 @@
 const Review = require("../../models/reviews");
 const HttpError = require("../../helpers/HttpError");
 const updateReview = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.user;
   const result = await Review.findOneAndRemove({
     ownerId: id,
   });

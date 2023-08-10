@@ -1,8 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-// const path = require("node:path");
-// const { auth } = require("./middlewares");
 
 const authRouter = require("./routes/api/auth");
 const reviewsRouter = require("./routes/api/reviews");
@@ -17,7 +15,6 @@ app.use(express.json());
 
 app.use("/api/auth", authRouter);
 app.use("/api/reviews", reviewsRouter);
-// app.use("/avatars", express.static(path.join(__dirname, "public", "avatars")));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
