@@ -2,7 +2,8 @@ const User = require("../../models/users");
 const HttpError = require("../../helpers/HttpError");
 
 const uploadUserNewData = async (req, res) => {
-  const result = await User.findByIdAndUpdate(req.user, req.body, {
+  console.log(req.file);
+  const result = await User.findByIdAndUpdate(req.user.id, req.body, {
     new: true,
   });
   if (!result) {
