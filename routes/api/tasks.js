@@ -6,34 +6,37 @@ const express = require("express");
 
 // const { registerSchema, loginSchema } = require("../../schemas");
 
-
 const router = express.Router();
 
 const ctrl = require("../../controllers/tasks");
 
-router.get("/",
-// auth,
- ctrl.getAll);
+router.get(
+  "/",
+  // auth,
+  ctrl.getAll
+);
 
+router.post(
+  "/",
+  // auth,
+  // validateBody(loginSchema),
+  ctrl.addTasks
+);
 
-router.post("/",
-// auth,
-// validateBody(loginSchema),
-ctrl.addTasks);
+router.delete(
+  "/:taskId",
+  //   auth, isValidTaskId,
+  ctrl.removeById
+);
 
-router.delete("/:taskId",
-//   auth, isValidTaskId,
- ctrl.removeById);
-
-router.patch("/:taskId",
-//  auth, isValidTaskId,
-// validateBody(loginSchema),
-  ctrl.update);
-
-
+router.patch(
+  "/:taskId",
+  //  auth, isValidTaskId,
+  // validateBody(loginSchema),
+  ctrl.update
+);
 
 module.exports = router;
-
 
 // const express = require("express");
 

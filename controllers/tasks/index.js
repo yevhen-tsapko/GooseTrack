@@ -1,4 +1,4 @@
-const addTasks = require("./addTask");
+const addTasks = require("./addTasks");
 const getAll = require("./getAll");
 const removeById = require("./removeById");
 const update = require("./update");
