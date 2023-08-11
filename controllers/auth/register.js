@@ -6,7 +6,7 @@ const register = async (req, res) => {
   const { name, email, password } = req.body;
   const isUser = await User.findOne({ email });
   if (isUser !== null) {
-    res.status(409).json({ message: "Email in use" });
+    return res.status(409).json({ message: "Email in use" });
   }
   const avatarURL = gravatar.url(email, { s: "100", r: "x", d: "retro" });
   const passwordHash = await bcrypt.hash(password, 10);
