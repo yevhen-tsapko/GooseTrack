@@ -4,7 +4,6 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      default: "starter",
       required: [true, "User name"],
     },
     password: {
@@ -29,20 +28,17 @@ const userSchema = new Schema(
       type: String,
       default: "Add skype number",
     },
-    avatar: {
-      type: String,
-    },
     token: { type: String, default: null },
     avatarURL: { type: String },
     theme: {
       type: String,
       enum: ["dark", "light"],
-      default: "dark",
+      default: "light",
     },
   },
   { versionKey: false, timestamps: true }
 );
-const User = model("user", userSchema);
+const User = model("users", userSchema);
 
 userSchema.post("save", handleMongooseError);
 module.exports = User;
