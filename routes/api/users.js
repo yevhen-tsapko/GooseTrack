@@ -9,6 +9,6 @@ router.patch(
   auth,
   multerUpload.single("avatar"),
   validateBody(userSchema),
-  contrs.uploadNewUserData
+  contrs.uploadUserNewData
 );
 module.exports = router;

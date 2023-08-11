@@ -14,6 +14,10 @@
       "description": "Authorization endpoints"
     },
     {
+      "name": "User",
+      "description": "Change of user data endpoints"
+    },
+    {
       "name": "Reviews",
       "description": "Reviews endpoints"
     },
@@ -63,12 +67,43 @@
         }
       }
     },
+
     "/api/auth/login": {
       "post": {
         "tags": ["Auth"],
-        "summary": "User login"
+        "summary": "User login",
+        "parameters": [],
+
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Email or password is wrong",
+            "content": {}
+          }
+        }
       }
     },
+
     "/api/auth/logout": {
       "post": {
         "tags": ["Auth"],
@@ -83,6 +118,14 @@
       "patch": {
         "tags": ["Auth"],
         "summary": ""
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"]
       }
     }
   }
