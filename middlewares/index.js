@@ -1,4 +1,5 @@
 const validateBody = require("./validateBody");
-const isValidId = require("./isValidId");
 const auth = require("./auth");
-module.exports = { validateBody, isValidId, auth };
+const addUserName = require("./addUserName");
+const multerUpload = require("./multerUpload");
+module.exports = { validateBody, auth, addUserName, multerUpload };

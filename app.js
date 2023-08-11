@@ -1,13 +1,12 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-const path = require("node:path");
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-// const { auth } = require("./middlewares");
 
 const authRouter = require("./routes/api/auth");
-// const userRouter = require("./routes/api/users");
+const reviewsRouter = require("./routes/api/reviews");
+const usersRouter = require("./routes/api/users");
 
 const app = express();
 
@@ -18,8 +17,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRouter);
-// app.use("/api/users", userRouter);
-app.use("/avatars", express.static(path.join(__dirname, "public", "avatars")));
+app.use("/api/reviews", reviewsRouter);
+app.use("/api/users", usersRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {

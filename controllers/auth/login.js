@@ -14,9 +14,7 @@ const login = async (req, res) => {
     });
     await User.findByIdAndUpdate(user._id, { token });
 
-    return res
-      .status(200)
-      .json({ user: { email, subscription: user.subscription }, token });
+    return res.status(200).json(user);
   }
   return res.status(401).json({ message: "Email or password is wrong" });
 };
