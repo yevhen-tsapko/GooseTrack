@@ -6,7 +6,7 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "..", "upload"));
   },
   filename: (req, file, cb) => {
-    cb(null, "avatar" + req.user.id); // file name - user id
+    cb(null, "avatar-" + req.user.id); // file name - user id
   },
   fileFilter: (req, file, cb) => {
     if (file.mimetype === "image/png" || file.mimetype === "image/jpeg") {
