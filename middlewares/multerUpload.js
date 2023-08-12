@@ -1,24 +1,24 @@
 const multer = require("multer");
-const path = require("path");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "..", "upload"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, "avatar-" + req.user.id); // file name - user id
-  },
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype === "image/png" || file.mimetype === "image/jpeg") {
-      cb(null, true);
-    } else {
-      cb(null, false);
-    }
-  },
-  limits: {
-    fileSize: 1048576,
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    return {
+      folder: "goose-track",
+      allowed_formats: ["jpg", "png"],
+      public_id: "avatar-" + req.user.id,
+    };
   },
 });
-const multerUpload = multer({ storage });
 
-module.exports = multerUpload;
+const upload = multer({ storage });
+
+module.exports = upload;

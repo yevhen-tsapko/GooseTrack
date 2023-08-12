@@ -1,6 +1,8 @@
 const uploadUserNewData = require("../users/uploadUserNewData");
+const getUser = require("../users/getUser");
 const contrsWrapper = require("../../helpers/contrsWrapper");
 
 module.exports = {
-  uploadUserNewData: contrsWrapper(uploadUserNewData),
+  getUser: contrsWrapper(getUser),
+  uploadNewUserData: contrsWrapper(uploadUserNewData),
 };
