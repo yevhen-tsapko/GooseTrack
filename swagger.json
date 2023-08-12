@@ -92,7 +92,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/"
+                "$ref": "#/components/schemas/LoginRequest"
               }
             }
           }
@@ -103,14 +103,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/"
+                  "$ref": "#/components/schemas/UserData"
                 }
               }
             }
           },
           "401": {
             "description": "Email or password is wrong",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401Response"
+                }
+              }
+            }
           }
         }
       }
@@ -119,19 +125,63 @@
     "/api/auth/logout": {
       "post": {
         "tags": ["Auth"],
-        "summary": "User logout"
+        "summary": "User logout",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "401": {
+            "description": "Not Authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401LogoutResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/users/current": {
       "get": {
         "tags": ["User"],
-        "summary": "Current user information"
-      }
-    },
-    "/api/users": {
+        "summary": "Get current user information",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserData"
+                }
+              }
+            }
+          }
+        }
+      },
       "patch": {
         "tags": ["User"],
-        "summary": "User's update"
+        "summary": "User's update",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeUserData"
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -162,8 +212,20 @@
       },
       "LoginRequest": {
         "type": "object",
-        "required": ["name", "email", "password"],
-        "properties": {}
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email",
+            "example": "user@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty"
+          }
+        }
       },
       "UserData": {
         "type": "object",
@@ -230,12 +292,66 @@
           }
         }
       },
+      "ChangeUserData": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Jhon"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email",
+            "example": "friend@mail.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone number",
+            "example": "38 (097) 123 45 67"
+          },
+          "skype": {
+            "type": "string",
+            "description": "User's skype address",
+            "example": "qwerty-qwerty"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's date of birth",
+            "example": "21/01/2020"
+          },
+          "theme": {
+            "type": "string",
+            "description": "User's theme type",
+            "example": "darck"
+          }
+        }
+      },
       "Error400Response": {
         "type": "object",
         "properties": {
           "message": {
             "type": "string",
             "example": "Bad request"
+          }
+        }
+      },
+      "Error401Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Email or password is wrong"
+          }
+        }
+      },
+      "Error401LogoutResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Not Authorized"
           }
         }
       },

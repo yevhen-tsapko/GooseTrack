@@ -4,5 +4,5 @@ const contrsWrapper = require("../../helpers/contrsWrapper");
 
 module.exports = {
   getUser: contrsWrapper(getUser),
-  uploadNewUserData: contrsWrapper(uploadUserNewData),
+  uploadUserNewData: contrsWrapper(uploadUserNewData),
 };
