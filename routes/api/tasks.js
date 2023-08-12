@@ -2,7 +2,7 @@ const express = require("express");
 
 // const { validateBody } = require("../../middlewares");
 
-// const auth = require("../../middlewares");
+const {auth} = require("../../middlewares");
 
 // const { registerSchema, loginSchema } = require("../../schemas");
 
@@ -12,13 +12,13 @@ const ctrl = require("../../controllers/tasks");
 
 router.get(
   "/",
-  // auth,
+  auth,
   ctrl.getAll
 );
 
 router.post(
   "/",
-  // auth,
+  auth,
   // validateBody(loginSchema),
   ctrl.addTasks
 );

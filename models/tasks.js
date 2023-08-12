@@ -30,8 +30,8 @@ const taskSchema = Schema({
     },
     end: {
       type: String,
-      // required: [true, "End time is required"],
-      required: this.end > this.start,
+      required: [true, "End time is required"],
+      // required: this.end > this.start,
     },
   //   favorite: {
   //     type: String,
@@ -55,11 +55,11 @@ const taskSchema = Schema({
       enum: ["to-do", "in-progress", "done"],
       required: [true, "Category is required"],
     },
-    // owner: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'user',
-    //   required:true,
-    // },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required:true,
+    },
   },{
     versionKey: false,
   });
