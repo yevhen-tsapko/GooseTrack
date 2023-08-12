@@ -8,7 +8,7 @@ const uploadUserNewData = async (req, res) => {
   if (isUser !== null) {
     res.status(409).json({ message: "Email in use" });
   }
-  // req.body.avatarURL = req.file.path;
+  req.body.avatarURL = req.file.path;
   const result = await User.findByIdAndUpdate(req.user.id, req.body, {
     new: true,
   });
