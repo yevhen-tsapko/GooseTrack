@@ -12,9 +12,12 @@ const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "23h",
     });
-    await User.findByIdAndUpdate(user._id, { token });
-
-    return res.status(200).json(user);
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      { token },
+      { new: true }
+    );
+    return res.status(200).json(updatedUser);
   }
   return res.status(401).json({ message: "Email or password is wrong" });
 };
