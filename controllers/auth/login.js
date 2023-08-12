@@ -7,13 +7,12 @@ const login = async (req, res) => {
   if (user === null) {
     return res.status(401).json({ message: "Email or password is wrong" });
   }
-  console.log(user);
   const isMatch = await bcrypt.compare(password, user.password);
   if (isMatch) {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "23h",
     });
-    await User.findByIdAndUpdate(user._id, { token });
+    await User.findByIdAndUpdate(user._id, { token }, { new: true });
     user.token = token;
     return res.status(200).json(user);
   }
