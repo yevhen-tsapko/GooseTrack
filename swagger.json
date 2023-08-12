@@ -7,7 +7,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:3000" }],
+  "servers": [{ "url": "https://goosetrack-0ajq.onrender.com" }],
   "tags": [
     {
       "name": "Auth",
@@ -15,7 +15,7 @@
     },
     {
       "name": "User",
-      "description": "Change of user data endpoints"
+      "description": "User data endpoints"
     },
     {
       "name": "Reviews",
@@ -40,7 +40,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/"
+                "$ref": "#/components/schemas/RegistrationRequest"
               }
             }
           }
@@ -51,18 +51,30 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/"
+                  "$ref": "#/components/schemas/UserData"
                 }
               }
             }
           },
           "400": {
             "description": "Bad request",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
           },
           "409": {
             "description": "Email in use",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error409Response"
+                }
+              }
+            }
           }
         }
       }
@@ -80,7 +92,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/"
+                "$ref": "#/components/schemas/"
               }
             }
           }
@@ -91,7 +103,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/"
+                  "$ref": "#/components/schemas/"
                 }
               }
             }
@@ -110,22 +122,138 @@
         "summary": "User logout"
       }
     },
-    "/api/auth/current": {
+    "/api/users/current": {
       "get": {
-        "tags": ["Auth"],
+        "tags": ["User"],
         "summary": "Current user information"
-      },
+      }
+    },
+    "/api/users": {
       "patch": {
-        "tags": ["Auth"],
-        "summary": ""
+        "tags": ["User"],
+        "summary": "User's update"
       }
     }
   },
+
   "components": {
     "schemas": {
       "RegistrationRequest": {
         "type": "object",
-        "required": ["name", "email", "password"]
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Bill"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email",
+            "example": "user@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {}
+      },
+      "UserData": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "64d74b74a5e4c755ff4eef2a"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Bill"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "user@mail.com"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's date of birth",
+            "example": "DD/MM/YYYY"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone number",
+            "example": "38 (000) 000 00 00"
+          },
+          "skype": {
+            "type": "string",
+            "description": "User's skype address",
+            "example": "Add skype number"
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZDc0Yjc0YTVlNGM3NTVmZjRlZWYyYSIsImlhdCI6MTY5MTgzMTE1NiwiZXhwIjoxNjkxOTEzOTU2fQ.ntaqs4gqv9-eQSDX-Y9ImeO0lYjx9iOWK6GyisCQudg"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar URL-adderss",
+            "example": "//www.gravatar.com/avatar/21add07c66904d761c038cdcf79b558a?s=100&r=x&d=retro"
+          },
+          "theme": {
+            "type": "string",
+            "description": "User's theme type",
+            "example": "light"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created date",
+            "example": "2023-08-12T09:05:56.396Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Update date",
+            "example": "2023-08-12T09:05:56.502Z"
+          }
+        }
+      },
+      "Error400Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Bad request"
+          }
+        }
+      },
+      "Error409Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Email in use"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
