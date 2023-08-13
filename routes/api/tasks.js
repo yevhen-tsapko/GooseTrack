@@ -2,12 +2,12 @@ const express = require("express");
 
 // const { validateBody } = require("../../middlewares");
 
-const {auth} = require("../../middlewares");
+const {auth,isValidTaskId,validateBody} = require("../../middlewares");
+
+const {taskSchema} = require ("../../schemas")
 
 
-const isValidTaskId = require("../../middlewares")
 
-console.log(isValidTaskId);
 // const { registerSchema, loginSchema } = require("../../schemas");
 
 const router = express.Router();
@@ -23,21 +23,21 @@ router.get(
 router.post(
   "/",
   auth,
-  // validateBody(loginSchema),
+  validateBody(taskSchema),
   ctrl.addTasks
 );
 
 router.delete(
   "/:taskId",
     auth, 
-  // isValidTaskId,
+  isValidTaskId,
   ctrl.removeById
 );
 
 router.patch(
   "/:taskId",
    auth,
-    // isValidTaskId,
+    isValidTaskId,
   // validateBody(loginSchema),
   ctrl.update
 );
