@@ -66,6 +66,16 @@
               }
             }
           },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          },
           "409": {
             "description": "Email in use",
             "content": {
@@ -108,12 +118,32 @@
               }
             }
           },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Email or password is wrong",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error401Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
                 }
               }
             }
@@ -133,12 +163,31 @@
           "204": {
             "description": "No content"
           },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Not Authorized",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error401LogoutResponse"
+                }
+              }
+            }
+          },"404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
                 }
               }
             }
@@ -163,6 +212,26 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
           }
         }
       },
@@ -178,6 +247,239 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ChangeUserData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reviews": {
+      "get": {
+        "tags": ["Reviews"],
+        "summary": "Get all reviews",
+        "parameters": [],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllReviews"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reviews/own": {
+      "get": {
+        "tags": ["Reviews"],
+        "summary": "Get own review",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOwnReview"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          
+          "404": {
+            "description": "No review",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404OwnReviewResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Reviews"],
+        "summary": "Make own review",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Review's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OwnReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OwnReviewResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Reviews"],
+        "summary": "Update own review",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Review's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOwnReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOwnReviewResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Reviews"],
+        "summary": "Remove own review",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOwnReviewResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
               }
             }
           }
@@ -328,6 +630,185 @@
           }
         }
       },
+      "GetAllReviews": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "User's id",
+              "example": "64d74b74a5e4c755ff4eef2a"
+            },
+            "name": {
+              "type": "string",
+              "description": "User's name",
+              "example": "Bill"
+            },
+            "ownerId": {
+              "type": "string",
+              "description": "User's own id",
+              "example": "64d47b31ebfbf85460caf8db"
+            },
+            "text": {
+              "type": "string",
+              "description": "Reviews text",
+              "example": "Sample feedback"
+            },
+            "rating": {
+              "type": "integer",
+              "description": "Rating assessment",
+              "example": 4
+            },
+            "createdAt": {
+              "type": "string",
+              "description": "Created date",
+              "example": "2023-08-12T09:05:56.396Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "description": "Update date",
+              "example": "2023-08-12T09:05:56.502Z"
+            }
+          }
+        }
+      },
+      "GetOwnReview": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Bill"
+          },
+          "text": {
+            "type": "string",
+            "description": "Reviews text",
+            "example": "Sample feedback"
+          },
+          "rating": {
+            "type": "integer",
+            "description": "Rating assessment",
+            "example": 4
+          }
+        }
+      },
+      "OwnReviewRequest": {
+        "type": "object",
+        "required": ["name", "text", "ratirg"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Bill"
+          },
+          "text": {
+            "type": "string",
+            "description": "Reviews text",
+            "example": "Sample feedback"
+          },
+          "rating": {
+            "type": "integer",
+            "description": "Rating assessment",
+            "example": 4
+          }
+        }
+      },
+      "OwnReviewResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Bill"
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "User's own id",
+            "example": "64d47b31ebfbf85460caf8db"
+          },
+          "text": {
+            "type": "string",
+            "description": "Reviews text",
+            "example": "Sample feedback"
+          },
+          "rating": {
+            "type": "integer",
+            "description": "Rating assessment",
+            "example": 4
+          },
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "64d74b74a5e4c755ff4eef2a"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created date",
+            "example": "2023-08-12T09:05:56.396Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Update date",
+            "example": "2023-08-12T09:05:56.502Z"
+          }
+        }
+      },
+      "UpdateOwnReviewRequest": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Updated reviews text",
+            "example": "Updated sample feedback"
+          },
+          "rating": {
+            "type": "integer",
+            "description": "Updated rating assessment",
+            "example": 4
+          }
+        }
+      },
+      "UpdateOwnReviewResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "64d74b74a5e4c755ff4eef2a"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Bill"
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "User's own id",
+            "example": "64d47b31ebfbf85460caf8db"
+          },
+          "text": {
+            "type": "string",
+            "description": "Reviews text",
+            "example": "Sample feedback"
+          },
+          "rating": {
+            "type": "integer",
+            "description": "Rating assessment",
+            "example": 4
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created date",
+            "example": "2023-08-12T09:05:56.396Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Update date",
+            "example": "2023-08-13T11:51:28.340Z"
+          }
+        }
+      },
       "Error400Response": {
         "type": "object",
         "properties": {
@@ -352,6 +833,24 @@
           "message": {
             "type": "string",
             "example": "Not Authorized"
+          }
+        }
+      },
+      "Error404Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Not found"
+          }
+        }
+      },
+      "Error404OwnReviewResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "You have no review"
           }
         }
       },
