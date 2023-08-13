@@ -2,7 +2,6 @@ const User = require("../../models/users");
 const HttpError = require("../../helpers/HttpError");
 
 const uploadUserNewData = async (req, res) => {
-  console.log(req.file);
   const { email } = req.body;
   const isUser = await User.findOne({ email });
   if (isUser !== null) {

@@ -28,7 +28,6 @@ const userSchema = new Schema(
       type: String,
       default: "Add skype number",
     },
-    token: { type: String, default: null },
     avatarURL: { type: String },
     theme: {
       type: String,
