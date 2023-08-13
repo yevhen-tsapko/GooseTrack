@@ -6,14 +6,14 @@ const createSessionAndTokens = async (userId) => {
     { uid: userId, sid: newSession._id },
     process.env.JWT_SECRET,
     {
-      expiresIn: "1h",
+      expiresIn: "300s",
     }
   );
   const refreshToken = jwt.sign(
     { uid: userId, sid: newSession._id },
     process.env.JWT_SECRET,
     {
-      expiresIn: "1m",
+      expiresIn: "100h",
     }
   );
   return { accessToken, refreshToken };

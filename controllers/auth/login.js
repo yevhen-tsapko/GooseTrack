@@ -1,6 +1,6 @@
 const User = require("../../models/users");
 const bcrypt = require("bcrypt");
-const createSessionAndTokens = require("../../helpers/createSessionAndTokens");
+const createSessionAndTokens = require("../../helpers/createNewSessionAndTokens");
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });

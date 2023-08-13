@@ -1,7 +1,7 @@
 const User = require("../../models/users");
 const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
-const createSessionAndTokens = require("../../helpers/createSessionAndTokens");
+const createSessionAndTokens = require("../../helpers/createNewSessionAndTokens");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
