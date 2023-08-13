@@ -7,7 +7,10 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "https://goosetrack-0ajq.onrender.com" }],
+  "servers": [
+    { "url": "https://goosetrack-0ajq.onrender.com" },
+    { "url": "http://localhost:3000" }
+  ],
   "tags": [
     {
       "name": "Auth",
@@ -492,13 +495,90 @@
         "tags": ["Task"],
         "summary": "Get all user's tasks",
         "parameters": [],
-        "security": [{ "Bearer": [] }]
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllTask"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
       },
       "post": {
         "tags": ["Task"],
         "summary": "Make task",
         "parameters": [],
-        "security": [{ "Bearer": [] }]
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Task's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TasksResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/tasks/{taskId}": {
@@ -507,14 +587,58 @@
         "summary": "Update task",
         "parameters": [
           {
-            "in": "query",
+            "in": "path",
             "name": "taskId",
             "required": true,
             "type": "string",
-            "description": "User's own id"
+            "description": "Task id"
           }
         ],
-        "security": [{ "Bearer": [] }]
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Update task's object",
+          
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTaskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TasksResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
       },
       "delete": {
         "tags": ["Task"],
@@ -525,10 +649,43 @@
             "name": "taskId",
             "required": true,
             "type": "string",
-            "description": "User's own id"
+            "description": "Task id"
           }
         ],
-        "security": [{ "Bearer": [] }]
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TasksDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -851,6 +1008,137 @@
             "type": "string",
             "description": "Update date",
             "example": "2023-08-13T11:51:28.340Z"
+          }
+        }
+      },
+      "GetAllTask": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TasksResponse"
+        }
+      },
+      "TaskRequest": {
+        "type": "object",
+        "required": ["title", "start", "end", "date", "category", "priority"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Task text",
+            "example": "work in garden"
+          },
+          "start": {
+            "type": "string",
+            "description": "Start time",
+            "example": "15:15"
+          },
+          "end": {
+            "type": "string",
+            "description": "End time",
+            "example": "15:45"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date",
+            "example": "2024-06-14"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category",
+            "example": "done"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Priority",
+            "example": "medium"
+          }
+        }
+      },
+      "TasksResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "64d74b74a5e4c755ff4eef2a"
+          },
+          "title": {
+            "type": "string",
+            "description": "Task text",
+            "example": "work in garden"
+          },
+          "start": {
+            "type": "string",
+            "description": "Start time",
+            "example": "15:15"
+          },
+          "end": {
+            "type": "string",
+            "description": "End time",
+            "example": "15:45"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Priority",
+            "example": "medium"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date",
+            "example": "2023-06-14T00:00:00.000+00:00"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category",
+            "example": "done"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's own id",
+            "example": "64d47b31ebfbf85460caf8db"
+          }
+        }
+      },
+      "UpdateTaskRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Task text",
+            "example": "work in garden"
+          },
+          "start": {
+            "type": "string",
+            "description": "Start time",
+            "example": "15:15"
+          },
+          "end": {
+            "type": "string",
+            "description": "End time",
+            "example": "15:45"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date",
+            "example": "2024-06-14"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category",
+            "example": "done"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Priority",
+            "example": "medium"
+          }
+        }
+      },
+      "TasksDeleteResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Task deleted"
           }
         }
       },
