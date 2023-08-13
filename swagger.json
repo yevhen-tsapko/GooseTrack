@@ -182,7 +182,8 @@
                 }
               }
             }
-          },"404": {
+          },
+          "404": {
             "description": "Not found",
             "content": {
               "application/json": {
@@ -333,7 +334,7 @@
               }
             }
           },
-          
+
           "404": {
             "description": "No review",
             "content": {
@@ -484,6 +485,50 @@
             }
           }
         }
+      }
+    },
+    "/api/tasks": {
+      "get": {
+        "tags": ["Task"],
+        "summary": "Get all user's tasks",
+        "parameters": [],
+        "security": [{ "Bearer": [] }]
+      },
+      "post": {
+        "tags": ["Task"],
+        "summary": "Make task",
+        "parameters": [],
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/api/tasks/{taskId}": {
+      "patch": {
+        "tags": ["Task"],
+        "summary": "Update task",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "taskId",
+            "required": true,
+            "type": "string",
+            "description": "User's own id"
+          }
+        ],
+        "security": [{ "Bearer": [] }]
+      },
+      "delete": {
+        "tags": ["Task"],
+        "summary": "Remove task",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "type": "string",
+            "description": "User's own id"
+          }
+        ],
+        "security": [{ "Bearer": [] }]
       }
     }
   },
