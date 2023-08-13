@@ -4,7 +4,7 @@ const userSchema = Joi.object({
   email: Joi.string(),
   phone: Joi.string().pattern(/^\d{2} \(\d{3}\) \d{3} \d{2} \d{2}$/),
   skype: Joi.string(),
-  bithday: Joi.string().pattern(/^\d{2}\/\d{2}\/\d{4}$/),
+  birthday: Joi.string().pattern(/^\d{2}\/\d{2}\/\d{4}$/),
   theme: Joi.string(),
 });
 
