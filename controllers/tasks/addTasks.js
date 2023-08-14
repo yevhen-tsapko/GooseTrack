@@ -1,28 +1,11 @@
-const Task =
-  // , taskSchemas
-  require("../../models/tasks");
 
-const addTasks = async (
-  req,
-  res
-  // , next
-) => {
-  // try {
-  // const { error } = taskSchemas.postCheckingSchema.validate(req.body);
+const Task = require("../../models/tasks");
 
-  // if (error) {
-  //   throw RequestError(400, error.message);
-  // }
-
+const addTasks = async (req, res) => {
   const { id: owner } = req.user;
-  // const { _id: owner } = req.user;
 
   const result = await Task.create({ ...req.body, owner });
 
   res.status(201).json(result);
-  // } catch (error) {
-  //   next(error);
-  // }
-};
 
 module.exports = addTasks;
