@@ -16,7 +16,7 @@ const userSchema = new Schema(
       required: [true, "Email is required"],
       unique: true,
     },
-    bithday: {
+    birthday: {
       type: String,
       default: "DD/MM/YYYY",
     },
