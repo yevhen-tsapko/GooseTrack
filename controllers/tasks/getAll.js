@@ -10,7 +10,7 @@ const getAll = async (req, res) => {
   });
 
   res.json(result);
-  //  }
+  
 };
 
 module.exports = getAll;
