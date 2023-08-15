@@ -1,13 +1,11 @@
 const User = require("../../models/users");
 const HttpError = require("../../helpers/HttpError");
 
-const uploadUserNewData = async (req, res) => {
-  const { email } = req.body;
-  const isUser = await User.findOne({ email });
-  if (isUser !== null) {
-    res.status(409).json({ message: "Email in use" });
+const updateUser = async (req, res) => {
+  console.log(req.file);
+  if (req.file) {
+    req.body.avatarURL = req.file.path;
   }
-  req.body.avatarURL = req.file.path;
   const result = await User.findByIdAndUpdate(req.user.id, req.body, {
     new: true,
   });
@@ -17,4 +15,4 @@ const uploadUserNewData = async (req, res) => {
   res.status(200).json(result);
 };
 
-module.exports = uploadUserNewData;
+module.exports = updateUser;
