@@ -250,12 +250,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  }
-                }
+                "$ref": "#/components/schemas/ChangeUserData"
               }
             }
           }
@@ -837,34 +832,32 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "User's name",
-            "example": "Jhon"
+            "description": "User's name"
           },
           "email": {
             "type": "string",
-            "description": "User's email",
-            "format": "email",
-            "example": "friend@mail.com"
+            "description": "User's email"
           },
           "phone": {
             "type": "string",
-            "description": "User's phone number",
-            "example": "38 (097) 123 45 67"
+            "description": "User's phone number"
           },
           "skype": {
             "type": "string",
-            "description": "User's skype address",
-            "example": "qwerty-qwerty"
+            "description": "User's skype address"
           },
           "birthday": {
             "type": "string",
-            "description": "User's date of birth",
-            "example": "21/01/2020"
+            "description": "User's date of birth"
           },
           "theme": {
             "type": "string",
-            "description": "User's theme type",
-            "example": "darck"
+            "description": "User's theme type"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "User's avatar",
+            "format": "binary"
           }
         }
       },
