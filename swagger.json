@@ -525,7 +525,15 @@
       "get": {
         "tags": ["Task"],
         "summary": "Get all user's tasks",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "required": true,
+            "type": "string",
+            "description": "Add year-month"
+          }
+        ],
         "security": [{ "Bearer": [] }],
 
         "responses": {
