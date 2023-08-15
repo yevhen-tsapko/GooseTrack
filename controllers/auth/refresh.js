@@ -3,7 +3,7 @@ const Session = require("../../models/session");
 
 const refresh = async (req, res) => {
   await Session.findByIdAndRemove(req.session.id);
-  const tokens = await createNewSessionAndTokens(req.user.id);
+  const tokens = await createNewSessionAndTokens(req.user.id); // tokens= { accessToken, refreshToken }
   return res.status(200).json(tokens);
 };
 
