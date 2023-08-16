@@ -1,8 +1,7 @@
 const express = require("express");
 
 const { auth, isValidTaskId, validateBody } = require("../../middlewares");
-
-const { taskSchema } = require("../../schemas");
+const taskSchema = require("../../schemas/taskSchema.js");
 
 const router = express.Router();
 
