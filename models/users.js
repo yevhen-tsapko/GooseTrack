@@ -18,15 +18,12 @@ const userSchema = new Schema(
     },
     birthday: {
       type: String,
-      default: "YYYY/MM/DD",
     },
     phone: {
       type: String,
-      default: "+380001110022",
     },
     skype: {
       type: String,
-      default: "Add skype number",
     },
     token: { type: String, default: null },
     avatarURL: { type: String },
