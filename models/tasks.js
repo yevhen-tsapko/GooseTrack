@@ -71,7 +71,7 @@ const taskSchema = Schema(
     },
   },
   {
-    versionKey: false,
+    versionKey: false
   }
 );
 

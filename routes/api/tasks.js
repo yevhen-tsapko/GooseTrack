@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { auth, isValidTaskId, validateBody } = require("../../middlewares");
-const {taskSchema, taskUpdateSchema} = require("../../schemas");
+const {taskSchema} = require("../../schemas");
 
 const router = express.Router();
 
@@ -13,6 +13,6 @@ router.post("/", auth, validateBody(taskSchema), ctrl.addTasks);
 
 router.delete("/:taskId", auth, isValidTaskId, ctrl.removeById);
 
-router.patch("/:taskId", auth, isValidTaskId, validateBody(taskUpdateSchema), ctrl.update);
+router.patch("/:taskId", auth, isValidTaskId, validateBody(taskSchema), ctrl.update);
 
 module.exports = router;

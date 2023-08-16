@@ -19,7 +19,7 @@ const formattedDate = `${year}-${month}-${day}`;
 const  {date}  = req.body 
 
 if (formattedDate > date) {
-return  res.status(400).json({ message: "You  can not create task earlier then user was registered" });
+return  res.status(400).json({ message: "You  can not create task earlier then you was registered" });
 }
   
   const { id: owner } = req.user;
