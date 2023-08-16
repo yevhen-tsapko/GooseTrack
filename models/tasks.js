@@ -50,8 +50,6 @@ const taskSchema = Schema(
     },
     date: {
       type: String,
-      min: "1987-09-28",
-      max: "2045-05-23",
       validate: {
         validator: function (value) {
           return /^\d{4}-\d{2}-\d{2}$/.test(value);
