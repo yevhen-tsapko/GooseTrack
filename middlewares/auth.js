@@ -26,7 +26,9 @@ function auth(req, res, next) {
     }
     const isSession = await Session.findById(decode.sid);
     if (!isSession) {
-      return res.status(401).json({ error: "Not Authorized" });
+      return res
+        .status(401)
+        .json({ error: "Warning! Someone is trying to use your account." });
     }
     req.user = { id: decode.uid };
     req.session = { id: decode.sid };
