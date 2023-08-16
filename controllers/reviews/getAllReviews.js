@@ -4,6 +4,10 @@ const getAllReviews = async (req, res) => {
   if (!reviews) {
     return res.status(200).json({ message: "Any reviews" });
   }
-  return res.status(200).json(reviews);
+  const sortedReviews = reviews.sort(
+    (review1, review2) => review2.updatedAt - review1.updatedAt
+  );
+
+  return res.status(200).json(sortedReviews);
 };
 module.exports = getAllReviews;
