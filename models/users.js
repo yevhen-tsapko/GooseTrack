@@ -18,11 +18,11 @@ const userSchema = new Schema(
     },
     birthday: {
       type: String,
-      default: "DD/MM/YYYY",
+      default: "YYYY/MM/DD",
     },
     phone: {
       type: String,
-      default: "38 (000) 000 00 00",
+      default: "+380001110022",
     },
     skype: {
       type: String,
