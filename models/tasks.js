@@ -15,7 +15,7 @@ const taskSchema = Schema(
           const pattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
           return pattern.test(v);
         },
-        message: "Your start time is invalid",
+        message: "Your start time is invalid. Waiting for time in HH:MM format",
       },
       required: [true, "Start time is required"],
     },
@@ -27,7 +27,7 @@ const taskSchema = Schema(
             const pattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
             return pattern.test(v);
           },
-          message: "Your end time is invalid",
+          message: "Your end time is invalid. Waiting for time in HH:MM format",
         },
         {
           validator: function (v) {
@@ -35,9 +35,9 @@ const taskSchema = Schema(
             const endValue = v;
             const startTime = parseTime(startValue);
             const endTime = parseTime(endValue);
-            return startTime <= endTime;
+            return startTime < endTime;
           },
-          message: "End time must be greater than or equal to start time",
+          message: "End time must be greater than start time",
         },
       ],
       required: [true, "End time is required"],
