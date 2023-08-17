@@ -248,14 +248,35 @@
         "requestBody": {
           "description": "",
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/ChangeUserData"
               }
             }
           }
         },
+
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserData"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found",
             "content": {
@@ -494,7 +515,15 @@
       "get": {
         "tags": ["Task"],
         "summary": "Get all user's tasks",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "required": true,
+            "type": "string",
+            "description": "Add year-month"
+          }
+        ],
         "security": [{ "Bearer": [] }],
 
         "responses": {
@@ -598,7 +627,7 @@
 
         "requestBody": {
           "description": "Update task's object",
-          
+
           "content": {
             "application/json": {
               "schema": {
@@ -801,34 +830,32 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "User's name",
-            "example": "Jhon"
+            "description": "User's name"
           },
           "email": {
             "type": "string",
-            "description": "User's email",
-            "format": "email",
-            "example": "friend@mail.com"
+            "description": "User's email"
           },
           "phone": {
             "type": "string",
-            "description": "User's phone number",
-            "example": "38 (097) 123 45 67"
+            "description": "User's phone number"
           },
           "skype": {
             "type": "string",
-            "description": "User's skype address",
-            "example": "qwerty-qwerty"
+            "description": "User's skype address"
           },
           "birthday": {
             "type": "string",
-            "description": "User's date of birth",
-            "example": "21/01/2020"
+            "description": "User's date of birth"
           },
           "theme": {
             "type": "string",
-            "description": "User's theme type",
-            "example": "darck"
+            "description": "User's theme type"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "User's avatar",
+            "format": "binary"
           }
         }
       },
