@@ -13,7 +13,7 @@ const storage = new CloudinaryStorage({
   params: async (req, file) => {
     return {
       folder: "goose-track",
-      allowed_formats: ["jpg", "png"],
+      allowed_formats: ["jpg", "png", "gif"],
       public_id: "avatar-" + req.user.id,
     };
   },
