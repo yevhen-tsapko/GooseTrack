@@ -286,16 +286,6 @@
                 }
               }
             }
-          },
-          "409": {
-            "description": "Email in use",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error409Response"
-                }
-              }
-            }
           }
         }
       }
