@@ -1,9 +1,7 @@
-const googlehandleAnswer = async (req, res) => {
-  console.log(req.params);
-  // const { accessToken, refreshToken } = req.query;
+const googlehandleAnswer = (req, res) => {
+  const { accessToken, refreshToken } = req.query.params;
+  console.log("accessToken", accessToken, "refreshToken", refreshToken);
 
-  //   return res.status(200).json({ ...user._doc, ...tokens });
+  return res.status(200).json({ accessToken, refreshToken });
 };
-// return res.status(401).json({ message: "Email or password is wrong" });
-
 module.exports = googlehandleAnswer;
