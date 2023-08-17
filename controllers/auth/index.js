@@ -3,6 +3,7 @@ const login = require("./login");
 const googleAuth = require("./googleAuth");
 const logout = require("./logout");
 const refresh = require("./refresh");
+const googlehandleAnswer = require("./googlehandleAnswer");
 const contrsWrapper = require("../../helpers/contrsWrapper");
 
 module.exports = {
@@ -11,4 +12,5 @@ module.exports = {
   googleAuth: contrsWrapper(googleAuth),
   logout: contrsWrapper(logout),
   refresh: contrsWrapper(refresh),
+  googlehandleAnswer: contrsWrapper(googlehandleAnswer),
 };

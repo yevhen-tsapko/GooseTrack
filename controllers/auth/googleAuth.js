@@ -5,7 +5,7 @@ const googleAuth = async (req, res) => {
     req.user._id
   );
   res.redirect(
-    `${FRONTEND_URL}/api/auth/login?accessToken=${accessToken}&refreshToken=${refreshToken} }`
+    `http://localhost:3000/api/auth/googdleAnswer?accessToken=${accessToken}&refreshToken=${refreshToken} }`
   );
 };
-module.export = googleAuth;
+module.exports = googleAuth;
