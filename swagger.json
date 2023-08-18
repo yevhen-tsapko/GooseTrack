@@ -786,22 +786,17 @@
           "birthday": {
             "type": "string",
             "description": "User's date of birth",
-            "example": "DD/MM/YYYY"
+            "example": "YYYY/MM/DD"
           },
           "phone": {
             "type": "string",
             "description": "User's phone number",
-            "example": "38 (000) 000 00 00"
+            "example": "+38XXXXXXXXXX"
           },
           "skype": {
             "type": "string",
             "description": "User's skype address",
             "example": "Add skype number"
-          },
-          "token": {
-            "type": "string",
-            "description": "User's token",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZDc0Yjc0YTVlNGM3NTVmZjRlZWYyYSIsImlhdCI6MTY5MTgzMTE1NiwiZXhwIjoxNjkxOTEzOTU2fQ.ntaqs4gqv9-eQSDX-Y9ImeO0lYjx9iOWK6GyisCQudg"
           },
           "avatarURL": {
             "type": "string",
