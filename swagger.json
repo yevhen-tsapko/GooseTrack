@@ -786,17 +786,17 @@
           "birthday": {
             "type": "string",
             "description": "User's date of birth",
-            "example": "DD/MM/YYYY"
+            "example": "YYYY/MM/DD"
           },
           "phone": {
             "type": "string",
             "description": "User's phone number",
-            "example": "38 (000) 000 00 00"
+            "example": "+38XXXXXXXXXX"
           },
           "skype": {
             "type": "string",
             "description": "User's skype address",
-            "example": "Add skype number"
+            "example": "user.bill.skype"
           },
           "token": {
             "type": "string",
