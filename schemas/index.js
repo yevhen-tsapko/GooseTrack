@@ -3,8 +3,8 @@ const loginSchema = require("./loginSchema");
 const reviewSchema = require("./reviewSchema");
 const reviewUpdateSchema = require("./reviewUpdateSchema");
 const userSchema = require("./userSchema");
+const userUpdatePasswordSchema = require("./userUpdatePasswordSchema");
 const taskSchema = require("./taskSchema");
-
 
 module.exports = {
   loginSchema,
@@ -12,5 +12,6 @@ module.exports = {
   reviewSchema,
   reviewUpdateSchema,
   userSchema,
-  taskSchema
+  userUpdatePasswordSchema,
+  taskSchema,
 };
