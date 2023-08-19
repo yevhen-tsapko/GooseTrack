@@ -199,6 +199,46 @@
         }
       }
     },
+    "/api/auth/refresh": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User's tokens",
+        "parameters": [],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUser'sTokens"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/users/current": {
       "get": {
         "tags": ["User"],
@@ -763,11 +803,6 @@
       "UserData": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "User's id",
-            "example": "64d74b74a5e4c755ff4eef2a"
-          },
           "name": {
             "type": "string",
             "description": "User's name",
@@ -776,7 +811,7 @@
           "password": {
             "type": "string",
             "description": "User's password",
-            "example": "qwerty"
+            "example": "$2b$10$SLJkVVm9auPhxdwbLpZ8h.JzalKE8p7Kh90GTEbY7wPk2aOTK7n9S"
           },
           "email": {
             "type": "string",
@@ -786,27 +821,36 @@
           "birthday": {
             "type": "string",
             "description": "User's date of birth",
-            "example": "YYYY/MM/DD"
+            "example": ""
           },
           "phone": {
             "type": "string",
             "description": "User's phone number",
-            "example": "+38XXXXXXXXXX"
+            "example": ""
           },
           "skype": {
             "type": "string",
             "description": "User's skype address",
-            "example": "Add skype number"
+            "example": ""
           },
           "avatarURL": {
             "type": "string",
             "description": "User's avatar URL-adderss",
             "example": "//www.gravatar.com/avatar/21add07c66904d761c038cdcf79b558a?s=100&r=x&d=retro"
           },
+          "token": {
+            "type": "bulean",
+            "example": null
+          },
           "theme": {
             "type": "string",
             "description": "User's theme type",
             "example": "light"
+          },
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "64d74b74a5e4c755ff4eef2a"
           },
           "createdAt": {
             "type": "string",
@@ -817,6 +861,31 @@
             "type": "string",
             "description": "Update date",
             "example": "2023-08-12T09:05:56.502Z"
+          },
+          "accessToken": {
+            "type": "string",
+            "description": "Access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYTkiLCJzaWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYWIiLCJpYXQiOjE2OTI0Nzc4MDksImV4cCI6MTY5MjQ3NzgzOX0.qj5gK70KDRBjT0zzb8gYcEuQ7mCh9n3_iEMUU-D2Cco"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYTkiLCJzaWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYWIiLCJpYXQiOjE2OTI0Nzc4MDksImV4cCI6MTY5MjgzNzgwOX0.h-ptKzTA7n7ll78u82Fdf1KaJOX-cLzk2wPHWh_5fJg"
+          }
+        }
+      },
+      "GetUser'sTokens": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYTkiLCJzaWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYWIiLCJpYXQiOjE2OTI0Nzc4MDksImV4cCI6MTY5MjQ3NzgzOX0.qj5gK70KDRBjT0zzb8gYcEuQ7mCh9n3_iEMUU-D2Cco"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYTkiLCJzaWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYWIiLCJpYXQiOjE2OTI0Nzc4MDksImV4cCI6MTY5MjgzNzgwOX0.h-ptKzTA7n7ll78u82Fdf1KaJOX-cLzk2wPHWh_5fJg"
           }
         }
       },
