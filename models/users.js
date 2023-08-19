@@ -29,6 +29,10 @@ const userSchema = new Schema(
       default: "",
     },
     avatarURL: { type: String },
+    token: {
+      type: String,
+      default: null,
+    },
     theme: {
       type: String,
       enum: ["dark", "light"],
