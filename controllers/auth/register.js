@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
 const { nanoid } = require("nanoid");
 const { sendEmail } = require("../../services");
+const createSessionAndTokens = require("../../helpers/createNewSessionAndTokens");
 
 const { BASE_URL } = process.env;
 
@@ -22,6 +23,8 @@ const register = async (req, res) => {
     avatarURL,
     verificationToken,
   });
+  const tokens = await createSessionAndTokens(user.id);
+  return res.status(200).json({ ...user._doc, ...tokens });
 
   const verifyEmail = {
     to: email,
