@@ -796,7 +796,7 @@
           "skype": {
             "type": "string",
             "description": "User's skype address",
-            "example": "Add skype number"
+            "example": "user.bill.skype"
           },
           "avatarURL": {
             "type": "string",
