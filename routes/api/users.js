@@ -2,7 +2,7 @@ const express = require("express");
 const { auth, validateBody, multerUpload } = require("../../middlewares");
 const router = express.Router();
 const contrs = require("../../controllers/users");
-const { userSchema } = require("../../schemas");
+const { userSchema, userVerifySchema } = require("../../schemas");
 
 router.get("/current", auth, contrs.getUser);
 
@@ -16,6 +16,6 @@ router.patch(
 
 router.get("/verify/:verificationToken", contrs.verify);
 
-router.post("/verify", contrs.resendVerify);
+router.post("/verify", validateBody(userVerifySchema), contrs.resendVerify);
 
 module.exports = router;
