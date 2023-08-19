@@ -6,7 +6,7 @@ const createSessionAndTokens = async (userId) => {
     { uid: userId, sid: newSession._id },
     process.env.JWT_SECRET,
     {
-      expiresIn: "300s",
+      expiresIn: "180s",
     }
   );
   const refreshToken = jwt.sign(
