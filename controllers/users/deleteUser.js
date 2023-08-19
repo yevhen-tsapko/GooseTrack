@@ -8,7 +8,7 @@ const deleteUser = async (req, res) => {
 
   if (!user) throw HttpError(404, "User not found");
 
-  return res.status(200).json("Deleted successfully");
+  return res.status(200).json({ message: "Deleted successfully" });
 };
 
 module.exports = deleteUser;
