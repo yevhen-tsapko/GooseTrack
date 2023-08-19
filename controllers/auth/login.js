@@ -1,6 +1,6 @@
 const User = require("../../models/users");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const createSessionAndTokens = require("../../helpers/createNewSessionAndTokens");
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -9,15 +9,8 @@ const login = async (req, res) => {
   }
   const isMatch = await bcrypt.compare(password, user.password);
   if (isMatch) {
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "23h",
-    });
-    const updatedUser = await User.findByIdAndUpdate(
-      user._id,
-      { token },
-      { new: true }
-    );
-    return res.status(200).json(updatedUser);
+    const tokens = await createSessionAndTokens(user.id);
+    return res.status(200).json({ ...user._doc, ...tokens });
   }
   return res.status(401).json({ message: "Email or password is wrong" });
 };

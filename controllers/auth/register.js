@@ -1,7 +1,8 @@
 const User = require("../../models/users");
 const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
-const jwt = require("jsonwebtoken");
+const createSessionAndTokens = require("../../helpers/createNewSessionAndTokens");
+
 const register = async (req, res) => {
   const { name, email, password } = req.body;
   const isUser = await User.findOne({ email });
@@ -16,11 +17,8 @@ const register = async (req, res) => {
     password: passwordHash,
     avatarURL,
   });
-  user.token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "23h",
-  });
-  const newUser = await User.findByIdAndUpdate(user._id, user, { new: true });
-  res.status(201).json(newUser);
+  const tokens = await createSessionAndTokens(user.id);
+  return res.status(200).json({ ...user._doc, ...tokens });
 };
 
 module.exports = register;
