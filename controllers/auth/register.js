@@ -16,6 +16,7 @@ const register = async (req, res) => {
   const avatarURL = gravatar.url(email, { s: "100", r: "x", d: "retro" });
   const passwordHash = await bcrypt.hash(password, 10);
   const verificationToken = nanoid();
+
   const newUser = await User.create({
     name,
     email,
@@ -23,8 +24,8 @@ const register = async (req, res) => {
     avatarURL,
     verificationToken,
   });
-  const tokens = await createSessionAndTokens(user.id);
-  return res.status(200).json({ ...user._doc, ...tokens });
+
+  const tokens = await createSessionAndTokens(newUser.id);
 
   const verifyEmail = {
     to: email,
@@ -38,7 +39,7 @@ const register = async (req, res) => {
     console.log(error);
   }
 
-  res.status(201).json(newUser);
+  return res.status(200).json({ ...newUser._doc, ...tokens });
 };
 
 module.exports = register;
