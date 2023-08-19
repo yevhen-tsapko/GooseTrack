@@ -24,10 +24,6 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
-    token: {
-      type: String,
-      default: null,
-    },
     skype: {
       type: String,
       default: "",
