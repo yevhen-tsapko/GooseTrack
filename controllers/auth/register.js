@@ -1,7 +1,6 @@
 const User = require("../../models/users");
 const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
-const jwt = require("jsonwebtoken");
 const { nanoid } = require("nanoid");
 const { sendEmail } = require("../../services");
 
@@ -16,7 +15,7 @@ const register = async (req, res) => {
   const avatarURL = gravatar.url(email, { s: "100", r: "x", d: "retro" });
   const passwordHash = await bcrypt.hash(password, 10);
   const verificationToken = nanoid();
-  const user = await User.create({
+  const newUser = await User.create({
     name,
     email,
     password: passwordHash,
@@ -29,12 +28,6 @@ const register = async (req, res) => {
     subject: "Verify your email",
     html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationToken}">Click to verify your email</a>`,
   };
-
-  user.token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "23h",
-  });
-
-  const newUser = await User.findByIdAndUpdate(user._id, user, { new: true });
 
   try {
     await sendEmail(verifyEmail);
