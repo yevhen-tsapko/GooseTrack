@@ -5,6 +5,7 @@ const contrs = require("../../controllers/users");
 const { userSchema } = require("../../schemas");
 
 router.get("/current", auth, contrs.getUser);
+
 router.patch(
   "/current",
   auth,
@@ -12,4 +13,7 @@ router.patch(
   validateBody(userSchema),
   contrs.updateUser
 );
+
+router.get("/verify/:verificationToken", contrs.verify);
+
 module.exports = router;
