@@ -1,4 +1,4 @@
-const { User } = require("../../schemas/user");
+const User = require("../../models/users");
 
 const verify = async (req, res) => {
   const { verificationToken } = req.params;
