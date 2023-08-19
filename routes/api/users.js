@@ -12,4 +12,7 @@ router.patch(
   validateBody(userSchema),
   contrs.updateUser
 );
+
+router.post("/delete", auth, contrs.deleteUser);
+
 module.exports = router;
