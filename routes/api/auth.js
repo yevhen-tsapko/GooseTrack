@@ -15,7 +15,6 @@ router.get(
   passport.authenticate("google", { session: false }),
   contrs.googleAuth
 );
-// router.get("/googleAnswer", contrs.googlehandleAnswer);
 router.post("/logout", auth, contrs.logout);
 router.get("/refresh", auth, contrs.refresh);
 
