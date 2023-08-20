@@ -25,6 +25,8 @@ function auth(req, res, next) {
       return next(err);
     }
 
+    req.user = { id: decode.uid };
+    req.session = { id: decode.sid };
     next();
   });
 }

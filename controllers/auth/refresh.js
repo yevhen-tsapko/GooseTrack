@@ -11,12 +11,14 @@ const refresh = async (req, res) => {
   try {
     const { uid, sid } = jwt.verify(refreshToken, secret);
 
-    const isSession = await Session.findByIdAndRemove(sid);
-    if (!isSession) {
-      return res
-        .status(401)
-        .json({ error: "Warning! Someone is trying to use your account." });
-    }
+    await Session.findByIdAndRemove(sid);
+    // or use this:
+    // const isSession = await Session.findByIdAndRemove(sid);
+    // if (!isSession) {
+    //   return res
+    //     .status(401)
+    //     .json({ error: "Warning! Someone is trying to use your account." });
+    // }
 
     const tokens = await createNewSessionAndTokens(uid); // tokens= { accessToken, refreshToken }
     return res.status(200).json(tokens);
