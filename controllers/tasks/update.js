@@ -9,7 +9,7 @@ const update = async (req, res) => {
 
 
   if (!isOwner) {
-    return res.status(404).json({ message: "You do not  own this task" });
+    return res.status(404).json({ message: "You do not own this task" });
   }
 
   const result = await Task.findByIdAndUpdate(taskId, req.body, {

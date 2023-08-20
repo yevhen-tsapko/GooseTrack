@@ -204,6 +204,7 @@
         "tags": ["Auth"],
         "summary": "User's tokens",
         "parameters": [],
+        "security": [{ "Bearer": [] }],
 
         "responses": {
           "200": {
@@ -252,7 +253,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserData"
+                  "$ref": "#/components/schemas/CurrentUserData"
                 }
               }
             }
@@ -302,7 +303,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserData"
+                  "$ref": "#/components/schemas/CurrentUserData"
                 }
               }
             }
@@ -889,6 +890,71 @@
           }
         }
       },
+      "CurrentUserData": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "64d74b74a5e4c755ff4eef2a"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Bill"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "$2b$10$SLJkVVm9auPhxdwbLpZ8h.JzalKE8p7Kh90GTEbY7wPk2aOTK7n9S"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "user@mail.com"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's date of birth",
+            "example": ""
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone number",
+            "example": ""
+          },
+          "skype": {
+            "type": "string",
+            "description": "User's skype address",
+            "example": ""
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar URL-adderss",
+            "example": "//www.gravatar.com/avatar/21add07c66904d761c038cdcf79b558a?s=100&r=x&d=retro"
+          },
+          "token": {
+            "type": "bulean",
+            "example": null
+          },
+          "theme": {
+            "type": "string",
+            "description": "User's theme type",
+            "example": "light"
+          },
+
+          "createdAt": {
+            "type": "string",
+            "description": "Created date",
+            "example": "2023-08-12T09:05:56.396Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Update date",
+            "example": "2023-08-12T09:05:56.502Z"
+          }
+        }
+      },
       "ChangeUserData": {
         "type": "object",
         "properties": {
@@ -983,6 +1049,11 @@
             "type": "integer",
             "description": "Rating assessment",
             "example": 4
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar URL-adderss",
+            "example": "//www.gravatar.com/avatar/9d2f718fb03f7dc4ecc27ca359342734?s=100&r=x&d=retro"
           }
         }
       },
