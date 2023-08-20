@@ -6,6 +6,7 @@ const {
   userSchema,
   userVerifySchema,
   userUpdatePasswordSchema,
+  updateForgottenPasswordSchema,
 } = require("../../schemas");
 
 router.get("/current", auth, contrs.getUser);
@@ -25,6 +26,12 @@ router.patch(
   auth,
   validateBody(userUpdatePasswordSchema),
   contrs.updatePassword
+);
+
+router.post(
+  "/forgot-password",
+  validateBody(updateForgottenPasswordSchema),
+  contrs.updateForgottenPassword
 );
 
 router.get("/verify/:verificationToken", contrs.verify);
