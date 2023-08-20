@@ -8,6 +8,6 @@ const getAllReviews = async (req, res) => {
     (review1, review2) => review2.updatedAt - review1.updatedAt
   );
 
-  return res.status(200).json(sortedReviews);
+  return res.status(200).json(sortedReviews.slice(0, 9));
 };
 module.exports = getAllReviews;

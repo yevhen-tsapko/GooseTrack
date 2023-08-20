@@ -18,14 +18,21 @@ const userSchema = new Schema(
     },
     birthday: {
       type: String,
+      default: "",
     },
     phone: {
       type: String,
+      default: "",
     },
     skype: {
       type: String,
+      default: "",
     },
     avatarURL: { type: String },
+    token: {
+      type: String,
+      default: null,
+    },
     theme: {
       type: String,
       enum: ["dark", "light"],

@@ -8,7 +8,7 @@ const taskSchema = Joi.object({
     .valid("low", "medium", "high")
     .default("low")
     .required(),
-  date: Joi.date().greater("now").required(),
+  date: Joi.date().iso().error(new Error(" date mustt be in the 'YYYY-MM-DD' format!")).required(),
   category: Joi.string().valid("to-do", "in-progress", "done").required(),
 }).custom((value, helpers) => {
   const { start, end } = value;
