@@ -1,7 +1,12 @@
 const User = require("../../models/users");
 const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
-const jwt = require("jsonwebtoken");
+const { nanoid } = require("nanoid");
+const { sendEmail } = require("../../services");
+const createSessionAndTokens = require("../../helpers/createNewSessionAndTokens");
+
+const { BASE_URL } = process.env;
+
 const register = async (req, res) => {
   const { name, email, password } = req.body;
   const isUser = await User.findOne({ email });
@@ -10,17 +15,31 @@ const register = async (req, res) => {
   }
   const avatarURL = gravatar.url(email, { s: "100", r: "x", d: "retro" });
   const passwordHash = await bcrypt.hash(password, 10);
-  const user = await User.create({
+  const verificationToken = nanoid();
+
+  const newUser = await User.create({
     name,
     email,
     password: passwordHash,
     avatarURL,
+    verificationToken,
   });
-  user.token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "23h",
-  });
-  const newUser = await User.findByIdAndUpdate(user._id, user, { new: true });
-  res.status(201).json(newUser);
+
+  const tokens = await createSessionAndTokens(newUser.id);
+
+  const verifyEmail = {
+    to: email,
+    subject: "Verify your email",
+    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationToken}">Click to verify your email</a>`,
+  };
+
+  try {
+    await sendEmail(verifyEmail);
+  } catch (error) {
+    console.log(error);
+  }
+
+  return res.status(200).json({ ...newUser._doc, ...tokens });
 };
 
 module.exports = register;
