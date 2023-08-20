@@ -5,12 +5,14 @@ const gravatar = require("gravatar");
 const { LOCAL_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 const User = require("../models/users");
 const { nanoid } = require("nanoid");
+
 const googleParams = {
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
   callbackURL: `${LOCAL_URL}/api/auth/google/redirect`,
   passReqToCallback: true,
 };
+
 const gooleCallback = async (req, accessToken, refreshToken, profile, done) => {
   try {
     const { email, displayName } = profile;
@@ -27,7 +29,6 @@ const gooleCallback = async (req, accessToken, refreshToken, profile, done) => {
       name: displayName,
       avatarURL,
     });
-    console.log("newUser", newUser);
     done(null, newUser);
   } catch (error) {
     done(error, false);
