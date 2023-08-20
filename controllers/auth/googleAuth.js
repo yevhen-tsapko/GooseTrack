@@ -1,4 +1,4 @@
-const FRONTEND_URL = process.env;
+const { FRONTEND_URL } = process.env;
 const createSessionAndTokens = require("../../helpers/createNewSessionAndTokens");
 
 const googleAuth = async (req, res) => {
@@ -6,7 +6,7 @@ const googleAuth = async (req, res) => {
     req.user._id
   );
   res.redirect(
-    `${FRONTEND_URL}?accessToken=${accessToken}&refreshToken=${refreshToken} }`
+    `${FRONTEND_URL}/GooseTrack?accessToken=${accessToken}&refreshToken=${refreshToken} }`
   );
 };
 module.exports = googleAuth;

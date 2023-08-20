@@ -18,7 +18,6 @@ const gooleCallback = async (req, accessToken, refreshToken, profile, done) => {
     const { email, displayName } = profile;
     const user = await User.findOne({ email });
     if (user) {
-      console.log("user", user);
       return done(null, user);
     }
     const password = await bcrypt.hash(nanoid(), 10);
