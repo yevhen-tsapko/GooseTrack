@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const secret = process.env.JWT_SECRET;
-const Session = require("../models/session");
+
 function auth(req, res, next) {
   const authHeader = req.headers.authorization;
   if (typeof authHeader !== "string") {
@@ -24,14 +24,7 @@ function auth(req, res, next) {
 
       return next(err);
     }
-    const isSession = await Session.findById(decode.sid);
-    if (!isSession) {
-      return res
-        .status(401)
-        .json({ error: "Warning! Someone is trying to use your account." });
-    }
-    req.user = { id: decode.uid };
-    req.session = { id: decode.sid };
+
     next();
   });
 }
