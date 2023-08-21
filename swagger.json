@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "version": "1.0.0",
+    "version": "1.0.2",
     "title": "GooseTrack",
     "description": "API documentation for project GooseTrack"
   },
@@ -116,7 +116,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserData"
+                  "$ref": "#/components/schemas/LoginResponse"
                 }
               }
             }
@@ -199,6 +199,47 @@
         }
       }
     },
+    "/api/auth/refresh": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User's tokens",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUser'sTokens"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/users/current": {
       "get": {
         "tags": ["User"],
@@ -212,7 +253,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserData"
+                  "$ref": "#/components/schemas/CurrentUserData"
                 }
               }
             }
@@ -246,7 +287,7 @@
         "security": [{ "Bearer": [] }],
 
         "requestBody": {
-          "description": "",
+          "description": "Request items",
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -262,7 +303,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserData"
+                  "$ref": "#/components/schemas/CurrentUserData"
                 }
               }
             }
@@ -290,6 +331,259 @@
         }
       }
     },
+    "/api/users/delete": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Remove user",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/password": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Update user's password",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody":{
+          "description": "User's new password",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdatePasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserUpdatePasswordResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/forgot-password": {
+      "post": {
+        "tags": ["User"],
+        "summary": "If user forgot password",
+        "parameters": [],
+        
+        "requestBody":{
+          "description": "User's email",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User'sEmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForgotPasswordResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/verify/{verificationToken}": {
+      "get": {
+        "tags": ["User"],
+        "summary": "User verification",
+        "parameters": [{
+          "in": "path",
+          "name": "verificationToken",
+          "required": true,
+          "type": "string",
+          "description": "Verification token"
+        }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationTokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/verify": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Verify user",
+        "parameters": [],
+
+        "requestBody":{
+          "description": "User's email",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User'sEmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "401":{
+            "description": "Verification has already been passed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401VerifyResponse"
+                }
+              }
+            }
+            
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
     "/api/reviews": {
       "get": {
         "tags": ["Reviews"],
@@ -743,6 +1037,86 @@
           }
         }
       },
+      "UserData": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Bill"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "$2b$10$SLJkVVm9auPhxdwbLpZ8h.JzalKE8p7Kh90GTEbY7wPk2aOTK7n9S"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "user@mail.com"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's date of birth",
+            "example": ""
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone number",
+            "example": ""
+          },
+          "skype": {
+            "type": "string",
+            "description": "User's skype address",
+            "example": ""
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar URL-adderss",
+            "example": "//www.gravatar.com/avatar/21add07c66904d761c038cdcf79b558a?s=100&r=x&d=retro"
+          },
+          "verify": {
+            "type": "boolean",
+            "description": "verify status",
+            "example": false
+          },
+          "verificationToken": {
+            "type": "string",
+            "description": "Verification token",
+            "example": "_FtlVoVP-BYgeohDEUmZc"
+          },
+          "theme": {
+            "type": "string",
+            "description": "User's theme type",
+            "example": "light"
+          },
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "64d74b74a5e4c755ff4eef2a"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created date",
+            "example": "2023-08-12T09:05:56.396Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Update date",
+            "example": "2023-08-12T09:05:56.502Z"
+          },
+          "accessToken": {
+            "type": "string",
+            "description": "Access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYTkiLCJzaWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYWIiLCJpYXQiOjE2OTI0Nzc4MDksImV4cCI6MTY5MjQ3NzgzOX0.qj5gK70KDRBjT0zzb8gYcEuQ7mCh9n3_iEMUU-D2Cco"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYTkiLCJzaWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYWIiLCJpYXQiOjE2OTI0Nzc4MDksImV4cCI6MTY5MjgzNzgwOX0.h-ptKzTA7n7ll78u82Fdf1KaJOX-cLzk2wPHWh_5fJg"
+          }
+        }
+      },
       "LoginRequest": {
         "type": "object",
         "required": ["email", "password"],
@@ -760,7 +1134,102 @@
           }
         }
       },
-      "UserData": {
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Bill"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "$2b$10$SLJkVVm9auPhxdwbLpZ8h.JzalKE8p7Kh90GTEbY7wPk2aOTK7n9S"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "user@mail.com"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's date of birth",
+            "example": ""
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone number",
+            "example": ""
+          },
+          "skype": {
+            "type": "string",
+            "description": "User's skype address",
+            "example": ""
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar URL-adderss",
+            "example": "//www.gravatar.com/avatar/21add07c66904d761c038cdcf79b558a?s=100&r=x&d=retro"
+          },
+          "verify": {
+            "type": "boolean",
+            "description": "verify status",
+            "example": true
+          },
+          "verificationToken": {
+            "type": "string",
+            "description": "Verification token",
+            "example": ""
+          },
+          "theme": {
+            "type": "string",
+            "description": "User's theme type",
+            "example": "light"
+          },
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "64d74b74a5e4c755ff4eef2a"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created date",
+            "example": "2023-08-12T09:05:56.396Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Update date",
+            "example": "2023-08-12T09:05:56.502Z"
+          },
+          "accessToken": {
+            "type": "string",
+            "description": "Access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYTkiLCJzaWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYWIiLCJpYXQiOjE2OTI0Nzc4MDksImV4cCI6MTY5MjQ3NzgzOX0.qj5gK70KDRBjT0zzb8gYcEuQ7mCh9n3_iEMUU-D2Cco"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYTkiLCJzaWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYWIiLCJpYXQiOjE2OTI0Nzc4MDksImV4cCI6MTY5MjgzNzgwOX0.h-ptKzTA7n7ll78u82Fdf1KaJOX-cLzk2wPHWh_5fJg"
+          }
+        }
+      },
+      "GetUser'sTokens": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYTkiLCJzaWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYWIiLCJpYXQiOjE2OTI0Nzc4MDksImV4cCI6MTY5MjQ3NzgzOX0.qj5gK70KDRBjT0zzb8gYcEuQ7mCh9n3_iEMUU-D2Cco"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYTkiLCJzaWQiOiI2NGUxMjk3MWI1ZTFlMmI3NGYwYmVkYWIiLCJpYXQiOjE2OTI0Nzc4MDksImV4cCI6MTY5MjgzNzgwOX0.h-ptKzTA7n7ll78u82Fdf1KaJOX-cLzk2wPHWh_5fJg"
+          }
+        }
+      },
+      "CurrentUserData": {
         "type": "object",
         "properties": {
           "_id": {
@@ -776,7 +1245,7 @@
           "password": {
             "type": "string",
             "description": "User's password",
-            "example": "qwerty"
+            "example": "$2b$10$SLJkVVm9auPhxdwbLpZ8h.JzalKE8p7Kh90GTEbY7wPk2aOTK7n9S"
           },
           "email": {
             "type": "string",
@@ -786,28 +1255,38 @@
           "birthday": {
             "type": "string",
             "description": "User's date of birth",
-            "example": "YYYY/MM/DD"
+            "example": ""
           },
           "phone": {
             "type": "string",
             "description": "User's phone number",
-            "example": "+38XXXXXXXXXX"
+            "example": ""
           },
           "skype": {
             "type": "string",
             "description": "User's skype address",
-            "example": "Add skype number"
+            "example": ""
           },
           "avatarURL": {
             "type": "string",
             "description": "User's avatar URL-adderss",
             "example": "//www.gravatar.com/avatar/21add07c66904d761c038cdcf79b558a?s=100&r=x&d=retro"
           },
+          "verify": {
+            "type": "boolean",
+            "example": true
+          },
+          "verificationToken": {
+            "type": "string",
+            "description": "Verification token",
+            "example": ""
+          },
           "theme": {
             "type": "string",
             "description": "User's theme type",
             "example": "light"
           },
+
           "createdAt": {
             "type": "string",
             "description": "Created date",
@@ -851,6 +1330,74 @@
             "type": "string",
             "description": "User's avatar",
             "format": "binary"
+          }
+        }
+      },
+      "DeleteUserResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Deleted successfully"
+          }
+        }
+      },
+      "UserUpdatePasswordRequest": {
+        "type": "object",
+        "required": ["password"],
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty"
+          }
+        }
+      },
+      "UserUpdatePasswordResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Password updated successfully"
+          }
+        }
+      },
+      "User'sEmailRequest": {
+        "type": "object",
+        "required": ["email"],
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email",
+            "example": "user@mail.com"
+          }
+        }
+      },
+      "ForgotPasswordResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "New password sent to your email"
+          }
+        }
+      },
+      "VerificationTokenResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Verification successful"
+          }
+        }
+      },
+      "VerifyResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Verification email sent"
           }
         }
       },
@@ -914,6 +1461,11 @@
             "type": "integer",
             "description": "Rating assessment",
             "example": 4
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar URL-adderss",
+            "example": "//www.gravatar.com/avatar/9d2f718fb03f7dc4ecc27ca359342734?s=100&r=x&d=retro"
           }
         }
       },
@@ -1188,6 +1740,15 @@
           "message": {
             "type": "string",
             "example": "Not Authorized"
+          }
+        }
+      },
+      "Error401VerifyResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Verification has already been passed"
           }
         }
       },
