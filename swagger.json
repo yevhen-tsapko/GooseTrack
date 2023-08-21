@@ -910,6 +910,16 @@
               }
             }
           },
+          "204": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAll204response"
+                }
+              }
+            }
+          },
           "400": {
             "description": "Bad request",
             "content": {
@@ -1668,6 +1678,15 @@
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/TasksResponse"
+        }
+      },
+      "GetAll204response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "You don't have any tasks created yet"
+          }
         }
       },
       "TaskRequest": {
