@@ -92,7 +92,6 @@
         }
       }
     },
-
     "/api/auth/login": {
       "post": {
         "tags": ["Auth"],
@@ -154,7 +153,20 @@
         }
       }
     },
-
+    "/api/auth/google": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User's google authrization",
+        "parameters": []
+      }
+    },
+    "/api/auth/google/redirect": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User's google redirect",
+        "parameters": []
+      }
+    },
     "/api/auth/logout": {
       "post": {
         "tags": ["Auth"],
@@ -332,7 +344,7 @@
       }
     },
     "/api/users/delete": {
-      "post": {
+      "delete": {
         "tags": ["User"],
         "summary": "Remove user",
         "parameters": [],
@@ -379,7 +391,7 @@
         "parameters": [],
         "security": [{ "Bearer": [] }],
 
-        "requestBody":{
+        "requestBody": {
           "description": "User's new password",
           "required": true,
           "content": {
@@ -429,8 +441,8 @@
         "tags": ["User"],
         "summary": "If user forgot password",
         "parameters": [],
-        
-        "requestBody":{
+
+        "requestBody": {
           "description": "User's email",
           "required": true,
           "content": {
@@ -479,13 +491,15 @@
       "get": {
         "tags": ["User"],
         "summary": "User verification",
-        "parameters": [{
-          "in": "path",
-          "name": "verificationToken",
-          "required": true,
-          "type": "string",
-          "description": "Verification token"
-        }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "verificationToken",
+            "required": true,
+            "type": "string",
+            "description": "Verification token"
+          }
+        ],
 
         "responses": {
           "200": {
@@ -527,7 +541,7 @@
         "summary": "Verify user",
         "parameters": [],
 
-        "requestBody":{
+        "requestBody": {
           "description": "User's email",
           "required": true,
           "content": {
@@ -559,7 +573,7 @@
               }
             }
           },
-          "401":{
+          "401": {
             "description": "Verification has already been passed",
             "content": {
               "application/json": {
@@ -568,7 +582,6 @@
                 }
               }
             }
-            
           },
           "404": {
             "description": "Not found",
