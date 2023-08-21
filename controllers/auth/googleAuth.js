@@ -6,7 +6,7 @@ const googleAuth = async (req, res) => {
     req.user._id
   );
   res.redirect(
-    `${FRONTEND_URL}/GooseTrack?accessToken=${accessToken}&refreshToken=${refreshToken} }`
+    `${FRONTEND_URL}/GooseTrack?accessToken=${accessToken}&refreshToken=${refreshToken}`
   );
 };
 module.exports = googleAuth;
