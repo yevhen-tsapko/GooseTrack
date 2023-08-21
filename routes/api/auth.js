@@ -2,7 +2,7 @@ const express = require("express");
 const { auth, validateBody, passport } = require("../../middlewares");
 const router = express.Router();
 const contrs = require("../../controllers/auth");
-const { registerSchema, loginSchema } = require("../../schemas");
+const { registerSchema, loginSchema, refreshSchema } = require("../../schemas");
 router.post("/register", validateBody(registerSchema), contrs.register);
 router.post("/login", validateBody(loginSchema), contrs.login);
 
@@ -16,6 +16,6 @@ router.get(
   contrs.googleAuth
 );
 router.post("/logout", auth, contrs.logout);
-router.get("/refresh", auth, contrs.refresh);
+router.post("/refresh", validateBody(refreshSchema), contrs.refresh);
 
 module.exports = router;
