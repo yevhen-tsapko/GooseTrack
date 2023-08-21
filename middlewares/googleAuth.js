@@ -2,14 +2,14 @@ const passport = require("passport");
 const { Strategy } = require("passport-google-oauth2");
 const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
-const { LOCAL_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
+const { BASE_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 const User = require("../models/users");
 const { nanoid } = require("nanoid");
 
 const googleParams = {
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: `${LOCAL_URL}/api/auth/google/redirect`,
+  callbackURL: `${BASE_URL}/api/auth/google/redirect`,
   passReqToCallback: true,
 };
 
