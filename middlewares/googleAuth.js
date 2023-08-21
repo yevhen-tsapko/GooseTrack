@@ -27,6 +27,8 @@ const gooleCallback = async (req, accessToken, refreshToken, profile, done) => {
       password,
       name: displayName,
       avatarURL,
+      verify: true,
+      verificationToken: "ForDB",
     });
     done(null, newUser);
   } catch (error) {
