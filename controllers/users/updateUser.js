@@ -2,7 +2,6 @@ const User = require("../../models/users");
 const HttpError = require("../../helpers/HttpError");
 
 const updateUser = async (req, res) => {
-  console.log(req.file);
   if (req.file) {
     req.body.avatarURL = req.file.path;
   }
