@@ -19,7 +19,7 @@ router.patch(
   contrs.updateUser
 );
 
-router.post("/delete", auth, contrs.deleteUser);
+router.delete("/delete", auth, contrs.deleteUser);
 
 router.patch(
   "/password",
