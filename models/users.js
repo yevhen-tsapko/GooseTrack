@@ -18,15 +18,25 @@ const userSchema = new Schema(
     },
     birthday: {
       type: String,
+      default: "",
     },
     phone: {
       type: String,
+      default: "",
     },
     skype: {
       type: String,
+      default: "",
     },
-    token: { type: String, default: null },
     avatarURL: { type: String },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, "Verify token is required"],
+    },
     theme: {
       type: String,
       enum: ["dark", "light"],
