@@ -12,15 +12,8 @@ const refresh = async (req, res) => {
     const { uid, sid } = jwt.verify(refreshToken, secret);
 
     await Session.findByIdAndRemove(sid);
-    // or use this:
-    // const isSession = await Session.findByIdAndRemove(sid);
-    // if (!isSession) {
-    //   return res
-    //     .status(401)
-    //     .json({ error: "Warning! Someone is trying to use your account." });
-    // }
 
-    const tokens = await createNewSessionAndTokens(uid); // tokens= { accessToken, refreshToken }
+    const tokens = await createNewSessionAndTokens(uid);
     return res.status(200).json(tokens);
   } catch (error) {
     throw HttpError(403, error.message);
