@@ -5,7 +5,6 @@ const getReview = async (req, res) => {
   if (!review) {
     return res.status(404).json({ message: "You have no review" });
   }
-  console.log(review);
   return res.status(200).json(review);
 };
 module.exports = getReview;
