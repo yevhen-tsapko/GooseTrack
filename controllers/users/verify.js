@@ -1,4 +1,5 @@
 const User = require("../../models/users");
+const { FRONTEND_URL } = process.env;
 
 const verify = async (req, res) => {
   const { verificationToken } = req.params;
@@ -13,7 +14,7 @@ const verify = async (req, res) => {
     verificationToken: "",
   });
 
-  res.status(200).json({ message: "Verification successful" });
+  res.redirect(`${FRONTEND_URL}/GooseTrack/?emailVerification=succes`);
 };
 
 module.exports = verify;
