@@ -1,6 +1,5 @@
 const Joi = require("joi");
-
-const emailRegexp = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
+const { emailRegexp } = require("./patternConstants");
 
 const userSchemaVerify = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
