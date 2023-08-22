@@ -11,15 +11,12 @@ const reviewSchema = new Schema(
       required: [true, "User id"],
       ref: "users",
     },
-    avatar: {
-      type: String,
-      required: [true, "User's avatar"],
-    },
     text: {
       type: String,
       maxlength: 250,
       required: [true, "User review"],
     },
+    avatarURL: { type: String },
     rating: {
       type: Number,
       enum: [1, 2, 3, 4, 5],
