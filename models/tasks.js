@@ -35,7 +35,7 @@ const taskSchema = Schema(
             const endValue = v;
             const startTime = parseTime(startValue);
             const endTime = parseTime(endValue);
-            return startTime < endTime;
+            return startTime <= endTime;
           },
           message: "End time must be greater than start time",
         },
@@ -71,7 +71,7 @@ const taskSchema = Schema(
     },
   },
   {
-    versionKey: false
+    versionKey: false,
   }
 );
 
