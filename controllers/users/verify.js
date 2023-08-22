@@ -14,7 +14,7 @@ const verify = async (req, res) => {
     verificationToken: "",
   });
 
-  res.redirect(`${FRONTEND_URL}/GooseTrack/?emailVetification=succes`);
+  res.redirect(`${FRONTEND_URL}/GooseTrack/?emailVerification=succes`);
 };
 
 module.exports = verify;
