@@ -11,10 +11,6 @@ const reviewSchema = new Schema(
       required: [true, "User id"],
       ref: "users",
     },
-    avatar: {
-      type: String,
-      required: [true, "User's avatar"],
-    },
     text: {
       type: String,
       maxlength: 250,
