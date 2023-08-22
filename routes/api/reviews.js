@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const contrs = require("../../controllers/reviews");
-const { auth, validateBody, addUserName } = require("../../middlewares");
+const {
+  auth,
+  validateBody,
+  addUserNameAndAvatar,
+} = require("../../middlewares");
 const { reviewSchema, reviewUpdateSchema } = require("../../schemas");
 
 router.get("/", contrs.getAllReviews);
@@ -9,7 +13,7 @@ router.get("/own", auth, contrs.getReview);
 router.post(
   "/own",
   auth,
-  addUserName,
+  addUserNameAndAvatar,
   validateBody(reviewSchema),
   contrs.createReview
 );

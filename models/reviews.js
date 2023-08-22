@@ -16,6 +16,7 @@ const reviewSchema = new Schema(
       maxlength: 250,
       required: [true, "User review"],
     },
+    avatarURL: { type: String },
     rating: {
       type: Number,
       enum: [1, 2, 3, 4, 5],

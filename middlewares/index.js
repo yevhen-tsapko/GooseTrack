@@ -1,13 +1,13 @@
 const validateBody = require("./validateBody");
 const auth = require("./auth");
-const addUserName = require("./addUserName");
+const addUserNameAndAvatar = require("./addUserNameAndAvatar");
 const isValidTaskId = require("./isValidTaskId");
 const multerUpload = require("./multerUpload");
 const passport = require("./googleAuth");
 module.exports = {
   validateBody,
   auth,
-  addUserName,
+  addUserNameAndAvatar,
   isValidTaskId,
   multerUpload,
   passport,
